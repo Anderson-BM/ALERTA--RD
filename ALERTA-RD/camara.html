@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cámaras - ALERTA RD</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="Style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    </head>
+<body>
+     <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-siren"></i>
+            </div>
+            <h2 class="sidebar-title">ALERTA RD</h2>
+            <p class="sidebar-subtitle">Seguridad Ciudadana</p>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <div class="nav-item">
+                <a href="Index.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="emergencia.html" class="nav-link active">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Emergencias</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="camara.html" class="nav-link">
+                    <i class="fas fa-video"></i>
+                    <span>Cámaras</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="reportarIncidente.html" class="nav-link">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Reportar Incidente</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="mapaDeIncidente.html" class="nav-link">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>Mapa de Incidentes</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="contacts.html" class="nav-link">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>Contactos</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="profile.html" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    <span>Mi Perfil</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="settings.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Configuración</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1 class="header-title">Sistema de Videovigilancia</h1>
+            <button class="btn btn-primary" onclick="refreshCameras()">
+                <i class="fas fa-sync-alt"></i>
+                Actualizar Cámaras
+            </button>
+        </div>
+
+        <!-- Camera Statistics -->
+        <div class="camera-stats">
+            <h3 class="mb-4">
+                <i class="fas fa-chart-bar"></i>
+                Estado del Sistema
+            </h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Cámaras Totales</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number text-success">5</div>
+                    <div class="stat-label">En Línea</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number text-danger">1</div>
+                    <div class="stat-label">Desconectadas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number text-warning">3</div>
+                    <div class="stat-label">Grabando</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Camera Grid -->
+        <div class="camera-grid">
+            <!-- Camera 1 -->
+            <div class="camera-feed">
+                <div class="recording-indicator">
+                    <div class="recording-dot"></div>
+                    REC
+                </div>
+                <div class="camera-controls">
+                    <button class="control-btn" onclick="fullscreen(1)" title="Pantalla Completa">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <button class="control-btn" onclick="snapshot(1)" title="Captura">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                    <button class="control-btn" onclick="toggleRecord(1)" title="Grabar">
+                        <i class="fas fa-record-vinyl"></i>
+                    </button>
+                </div>
+                <div class="camera-placeholder">
+                    <i class="fas fa-video"></i>
+                </div>
+                <div class="camera-info">
+                    <div class="camera-name">Entrada Principal</div>
+                    <div class="camera-status">
+                        <span class="status-indicator status-online"></span>
+                        En línea - Grabando
+                    </div>
+                </div>
+            </div>
+
+            <!-- Camera 2 -->
+            <div class="camera-feed">
+                <div class="recording-indicator">
+                    <div class="recording-dot"></div>
+                    REC
+                </div>
+                <div class="camera-controls">
+                    <button class="control-btn" onclick="fullscreen(2)" title="Pantalla Completa">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <button class="control-btn" onclick="snapshot(2)" title="Captura">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                    <button class="control-btn" onclick="toggleRecord(2)" title="Grabar">
+                        <i class="fas fa-record-vinyl"></i>
+                    </button>
+                </div>
+                <div class="camera-placeholder">
+                    <i class="fas fa-video"></i>
+                </div>
+                <div class="camera-info">
+                    <div class="camera-name">Patio Trasero</div>
+                    <div class="camera-status">
+                        <span class="status-indicator status-online"></span>
+                        En línea - Grabando
+                    </div>
+                </div>
+            </div>
+
+            <!-- Camera 3 -->
+            <div class="camera-feed">
+                <div class="camera-controls">
+                    <button class="control-btn" onclick="fullscreen(3)" title="Pantalla Completa">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <button class="control-btn" onclick="snapshot(3)" title="Captura">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                    <button class="control-btn" onclick="toggleRecord(3)" title="Grabar">
+                        <i class="fas fa-record-vinyl"></i>
+                    </button>
+                </div>
+                <div class="camera-placeholder">
+                    <i class="fas fa-video"></i>
+                </div>
+                <div class="camera-info">
+                    <div class="camera-name">Sala Principal</div>
+                    <div class="camera-status">
+                        <span class="status-indicator status-online"></span>
+                        En línea - Sin grabar
+                    </div>
+                </div>
+            </div>
+
+            <!-- Camera 4 -->
+            <div class="camera-feed">
+                <div class="camera-controls">
+                    <button class="control-btn" onclick="fullscreen(4)" title="Pantalla Completa">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <button class="control-btn" onclick="snapshot(4)" title="Captura">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                    <button class="control-btn" onclick="toggleRecord(4)" title="Grabar">
+                        <i class="fas fa-record-vinyl"></i>
+                    </button>
+                </div>
+                <div class="camera-placeholder">
+                    <i class="fas fa-video"></i>
+                </div>
+                <div class="camera-info">
+                    <div class="camera-name">Calle Principal</div>
+                    <div class="camera-status">
+                        <span class="status-indicator status-online"></span>
+                        En línea - Sin grabar
+                    </div>
+                </div>
+            </div>
+
+            <!-- Camera 5 -->
+            <div class="camera-feed">
+                <div class="recording-indicator">
+                    <div class="recording-dot"></div>
+                    REC
+                </div>
+                <div class="camera-controls">
+                    <button class="control-btn" onclick="fullscreen(5)" title="Pantalla Completa">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <button class="control-btn" onclick="snapshot(5)" title="Captura">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                    <button class="control-btn" onclick="toggleRecord(5)" title="Grabar">
+                        <i class="fas fa-record-vinyl"></i>
+                    </button>
+                </div>
+                <div class="camera-placeholder">
+                    <i class="fas fa-video"></i>
+                </div>
+                <div class="camera-info">
+                    <div class="camera-name">Garaje</div>
+                    <div class="camera-status">
+                        <span class="status-indicator status-online"></span>
+                        En línea - Grabando
+                    </div>
+                </div>
+            </div>
+
+            <!-- Camera 6 - Offline -->
+            <div class="camera-feed">
+                <div class="camera-controls">
+                    <button class="control-btn" onclick="reconnect(6)" title="Reconectar">
+                        <i class="fas fa-plug"></i>
+                    </button>
+                </div>
+                <div class="camera-placeholder camera-offline">
+                    <i class="fas fa-video-slash"></i>
+                </div>
+                <div class="camera-info">
+                    <div class="camera-name">Cocina</div>
+                    <div class="camera-status">
+                        <span class="status-indicator status-offline"></span>
+                        Desconectada
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Call Button -->
+    <div class="emergency-call" onclick="call911()">
+        <i class="fas fa-phone"></i>
+    </div>
+    <script src="script.js"></script>
+</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+</html>

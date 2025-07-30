@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALERTA RD - Sistema de Seguridad Ciudadana</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="Style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    </head>
+<body>
+ <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-siren"></i>
+            </div>
+            <h2 class="sidebar-title">ALERTA RD</h2>
+            <p class="sidebar-subtitle">Seguridad Ciudadana</p>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <div class="nav-item">
+                <a href="Index.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="emergencia.html" class="nav-link active">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Emergencias</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="camara.html" class="nav-link">
+                    <i class="fas fa-video"></i>
+                    <span>Cámaras</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="reportarIncidente.html" class="nav-link">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Reportar Incidente</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="mapaDeIncidente.html" class="nav-link">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>Mapa de Incidentes</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="contacts.html" class="nav-link">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>Contactos</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="profile.html" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    <span>Mi Perfil</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="settings.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Configuración</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1 class="header-title">Reportar Incidente</h1>
+            <button class="emergency-btn" onclick="call911()">
+                <i class="fas fa-phone"></i>
+                Llamar 911
+            </button>
+        </div>
+
+        <!-- Report Form -->
+        <div class="report-form">
+            <form onsubmit="submitReport(event)" id="reportForm">
+                <!-- Incident Type Section -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Tipo de Incidente
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Categoría del Incidente *</label>
+                                <select class="form-select" id="incidentType" required>
+                                    <option value="">Seleccionar categoría...</option>
+                                    <option value="robo">Robo/Atraco</option>
+                                    <option value="violencia">Violencia Doméstica</option>
+                                    <option value="accidente">Accidente de Tránsito</option>
+                                    <option value="sospechoso">Actividad Sospechosa</option>
+                                    <option value="vandalismo">Vandalismo</option>
+                                    <option value="drogas">Tráfico de Drogas</option>
+                                    <option value="ruido">Ruido Excesivo</option>
+                                    <option value="otros">Otros</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Nivel de Prioridad *</label>
+                                <div class="priority-buttons">
+                                    <div class="priority-btn high" onclick="selectPriority('alta', this)">
+                                        <i class="fas fa-exclamation-circle"></i><br>
+                                        <strong>Alta</strong><br>
+                                        <small>Emergencia</small>
+                                    </div>
+                                    <div class="priority-btn medium" onclick="selectPriority('media', this)">
+                                        <i class="fas fa-exclamation-triangle"></i><br>
+                                        <strong>Media</strong><br>
+                                        <small>Urgente</small>
+                                    </div>
+                                    <div class="priority-btn low" onclick="selectPriority('baja', this)">
+                                        <i class="fas fa-info-circle"></i><br>
+                                        <strong>Baja</strong><br>
+                                        <small>Información</small>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="priority" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Location Section -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Ubicación del Incidente
+                    </div>
+                    <div class="location-section">
+                        <div class="location-input">
+                            <label class="form-label">Dirección Exacta *</label>
+                            <input type="text" class="form-control" id="location" 
+                                   placeholder="Ej: Calle Principal #123, Sector Los Jardines" required>
+                        </div>
+                        <button type="button" class="location-btn" onclick="getCurrentLocation()">
+                            <i class="fas fa-crosshairs"></i>
+                            Mi Ubicación
+                        </button>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Sector/Barrio</label>
+                            <input type="text" class="form-control" id="sector" 
+                                   placeholder="Nombre del sector o barrio">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Referencias</label>
+                            <input type="text" class="form-control" id="references" 
+                                   placeholder="Ej: Cerca del colmado Don Juan">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description Section -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-edit"></i>
+                        Descripción del Incidente
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Descripción Detallada *</label>
+                        <textarea class="form-control" id="description" rows="5" 
+                                  placeholder="Describe detalladamente lo que sucedió, incluyendo personas involucradas, vehículos, daños, etc." required></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">¿Hubo heridos?</label>
+                            <select class="form-select" id="injuries">
+                                <option value="no">No</option>
+                                <option value="si">Sí</option>
+                                <option value="desconocido">Desconocido</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">¿Hay daños materiales?</label>
+                            <select class="form-select" id="damages">
+                                <option value="no">No</option>
+                                <option value="si">Sí</option>
+                                <option value="desconocido">Desconocido</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">¿Están las autoridades presentes?</label>
+                            <select class="form-select" id="authorities">
+                                <option value="no">No</option>
+                                <option value="policia">Policía</option>
+                                <option value="bomberos">Bomberos</option>
+                                <option value="ambulancia">Ambulancia</option>
+                                <option value="varios">Varios</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Date and Time Section -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-clock"></i>
+                        Fecha y Hora del Incidente
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">Fecha *</label>
+                            <input type="date" class="form-control" id="incidentDate" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Hora *</label>
+                            <input type="time" class="form-control" id="incidentTime" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">¿Cuándo ocurrió?</label>
+                            <select class="form-select" id="timeFrame" onchange="setDateTime()">
+                                <option value="ahora">Está ocurriendo ahora</option>
+                                <option value="reciente">Hace menos de 1 hora</option>
+                                <option value="hoy">Hoy</option>
+                                <option value="ayer">Ayer</option>
+                                <option value="otro">Otra fecha</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Evidence Section -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-camera"></i>
+                        Evidencias (Opcional)
+                    </div>
+                    <div class="file-upload-area" onclick="document.getElementById('fileInput').click()" 
+                         ondragover="handleDragOver(event)" ondrop="handleDrop(event)">
+                        <div class="file-upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <h5>Subir Fotos o Videos</h5>
+                        <p class="text-muted">Haz clic aquí o arrastra archivos para subir evidencias</p>
+                        <small class="text-muted">Formatos: JPG, PNG, MP4, MOV (Máximo 10MB por archivo)</small>
+                    </div>
+                    <input type="file" id="fileInput" multiple accept="image/*,video/*" 
+                           style="display: none;" onchange="handleFileSelect(event)">
+                    <div class="uploaded-files" id="uploadedFiles"></div>
+                </div>
+
+                <!-- Contact Information Section -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-user"></i>
+                        Información de Contacto
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">Nombre Completo</label>
+                            <input type="text" class="form-control" id="reporterName" 
+                                   placeholder="Tu nombre completo">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Teléfono</label>
+                            <input type="tel" class="form-control" id="reporterPhone" 
+                                   placeholder="Tu número de teléfono">
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="anonymous">
+                            <label class="form-check-label" for="anonymous">
+                                Reportar de forma anónima
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="followUp">
+                            <label class="form-check-label" for="followUp">
+                                Deseo recibir actualizaciones sobre este reporte
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Section -->
+                <div class="submit-section">
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-paper-plane"></i>
+                        Enviar Reporte
+                    </button>
+                    <p class="text-muted mt-3">
+                        Tu reporte será procesado inmediatamente y enviado a las autoridades correspondientes
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Emergency Call Button -->
+    <div class="emergency-call" onclick="call911()">
+        <i class="fas fa-phone"></i>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let uploadedFiles = [];
+
+        function call911() {
+            if (confirm('¿Deseas llamar al 911 para emergencia?')) {
+                window.location.href = 'tel:911';
+            }
+        }
+
+        function selectPriority(priority, element) {
+            // Remove active class from all priority buttons
+            document.querySelectorAll('.priority-btn').forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to selected button
+            element.classList.add('active');
+            
+            // Set hidden input value
+            document.getElementById('priority').value = priority;
+        }
+
+        function getCurrentLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    // In a real app, you would reverse geocode these coordinates
+                    alert('Ubicación obtenida: ' + position.coords.latitude + ', ' + position.coords.longitude);
+                    document.getElementById('location').value = 'Coordenadas: ' + 
+                        position.coords.latitude.toFixed(6) + ', ' + position.coords.longitude.toFixed(6);
+                }, function(error) {
+                    alert('Error al obtener ubicación: ' + error.message);
+                });
+            } else {
+                alert('Geolocalización no es soportada por este navegador.');
+            }
+        }
+
+        function setDateTime() {
+            const timeFrame = document.getElementById('timeFrame').value;
+            const dateInput = document.getElementById('incidentDate');
+            const timeInput = document.getElementById('incidentTime');
+            const now = new Date();
+
+            switch(timeFrame) {
+                case 'ahora':
+                    dateInput.value = now.toISOString().split('T')[0];
+                    timeInput.value = now.toTimeString().split(' ')[0].substring(0, 5);
+                    break;
+                case 'reciente':
+                    const oneHourAgo = new Date(now.getTime() - 60*60*1000);
+                    dateInput.value = oneHourAgo.toISOString().split('T')[0];
+                    timeInput.value = oneHourAgo.toTimeString().split(' ')[0].substring(0, 5);
+                    break;
+                case 'hoy':
+                    dateInput.value = now.toISOString().split('T')[0];
+                    timeInput.value = '';
+                    break;
+                case 'ayer':
+                    const yesterday = new Date(now.getTime() - 24*60*60*1000);
+                    dateInput.value = yesterday.toISOString().split('T')[0];
+                    timeInput.value = '';
+                    break;
+                case 'otro':
+                    dateInput.value = '';
+                    timeInput.value = '';
+                    break;
+            }
+        }
+
+        function handleDragOver(event) {
+            event.preventDefault();
+            event.currentTarget.classList.add('dragover');
+        }
+
+        function handleDrop(event) {
+            event.preventDefault();
+            event.currentTarget.classList.remove('dragover');
+            const files = event.dataTransfer.files;
+            processFiles(files);
+        }
+
+        function handleFileSelect(event) {
+            const files = event.target.files;
+            processFiles(files);
+        }
+
+        function processFiles(files) {
+            for (let file of files) {
+                if (file.size > 10 * 1024 * 1024) { // 10MB limit
+                    alert('El archivo ' + file.name + ' es demasiado grande. Máximo 10MB.');
+                    continue;
+                }
+                
+                uploadedFiles.push(file);
+                displayUploadedFile(file);
+            }
+        }
+
+        function displayUploadedFile(file) {
+            const container = document.getElementById('uploadedFiles');
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            
+            const isImage = file.type.startsWith('image/');
+            const isVideo = file.type.startsWith('video/');
+            
+            fileItem.innerHTML = `
+                <div class="file-info">
+                    <i class="fas ${isImage ? 'fa-image' : isVideo ? 'fa-video' : 'fa-file'} file-icon"></i>
+                    <span>${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)</span>
+                </div>
+                <button type="button" class="remove-file" onclick="removeFile('${file.name}', this)">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            container.appendChild(fileItem);
+        }
+
+        function removeFile(fileName, button) {
+            uploadedFiles = uploadedFiles.filter(file => file.name !== fileName);
+            button.parentElement.remove();
+        }
+
+        function submitReport(event) {
+            event.preventDefault();
+            
+            // Basic validation
+            const requiredFields = ['incidentType', 'priority', 'location', 'description', 'incidentDate', 'incidentTime'];
+            let isValid = true;
+            
+            for (let field of requiredFields) {
+                const element = document.getElementById(field);
+                if (!element.value.trim()) {
+                    element.style.borderColor = '#dc2626';
+                    isValid = false;
+                } else {
+                    element.style.borderColor = '#e5e7eb';
+                }
+            }
+            
+            if (!isValid) {
+                alert('Por favor, completa todos los campos obligatorios marcados con *');
+                return;
+            }
+            
+            // Show success message
+            const form = document.getElementById('reportForm');
+            form.innerHTML = `
+                <div class="alert alert-success text-center">
+                    <i class="fas fa-check-circle fa-3x mb-3"></i>
+                    <h4>¡Reporte Enviado Exitosamente!</h4>
+                    <p>Tu reporte ha sido enviado a las autoridades correspondientes.</p>
+                    <p><strong>Número de Reporte:</strong> #RD${Date.now()}</p>
+                    <p>Recibirás una confirmación en breve.</p>
+                    <button class="btn btn-primary mt-3" onclick="location.reload()">
+                        <i class="fas fa-plus"></i>
+                        Hacer Otro Reporte
+                    </button>
+                </div>
+            `;
+        }
+
+        // Initialize form
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current date and time as default
+            setDateTime();
+            
+            // Remove dragover class when dragging leaves
+            document.addEventListener('dragleave', function(event) {
+                if (!event.currentTarget.contains(event.relatedTarget)) {
+                    document.querySelectorAll('.file-upload-area').forEach(area => {
+                        area.classList.remove('dragover');
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
