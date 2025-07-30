@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALERTA RD - Sistema de Seguridad Ciudadana</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="Style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    </head>
+<body>
+ <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-siren"></i>
+            </div>
+            <h2 class="sidebar-title">ALERTA RD</h2>
+            <p class="sidebar-subtitle">Seguridad Ciudadana</p>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <div class="nav-item">
+                <a href="Index.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="emergencia.html" class="nav-link active">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Emergencias</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="camara.html" class="nav-link">
+                    <i class="fas fa-video"></i>
+                    <span>Cámaras</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="reportarIncidente.html" class="nav-link">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Reportar Incidente</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="mapaDeIncidente.html" class="nav-link">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>Mapa de Incidentes</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="contacts.html" class="nav-link">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>Contactos</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="profile.html" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    <span>Mi Perfil</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="settings.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Configuración</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Toggle Sidebar Button -->
+    <button class="toggle-sidebar" id="toggleSidebar" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Dashboard Section -->
+        <div id="dashboard" class="section active">
+            <div class="header">
+                <h1 class="header-title">Panel de Control</h1>
+                <button class="emergency-btn" onclick="call911()">
+                    <i class="fas fa-phone"></i>
+                    Llamar 911
+                </button>
+            </div>
+
+            <div class="dashboard-cards">
+                <div class="card">
+                    <div class="card-icon blue">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="card-title">Seguridad 24/7</h3>
+                    <p class="card-description">Monitoreo constante y respuesta inmediata ante cualquier emergencia en tu sector.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon red">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <h3 class="card-title">Alertas Activas</h3>
+                    <p class="card-description">Recibe notificaciones en tiempo real sobre incidentes en tu área.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon green">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3 class="card-title">Videovigilancia</h3>
+                    <p class="card-description">Acceso a cámaras de seguridad para monitorear tu hogar y comunidad.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon orange">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="card-title">Comunidad Activa</h3>
+                    <p class="card-description">Participa en la red de seguridad ciudadana de tu barrio.</p>
+                </div>
+            </div>
+
+            <div class="quick-actions">
+                <h3><i class="fas fa-bolt"></i> Acciones Rápidas</h3>
+                <div class="action-buttons">
+                    <a href="#" class="action-btn" onclick="showSection('emergency')">
+                        <i class="fas fa-exclamation-triangle text-danger"></i>
+                        <strong>Reportar Emergencia</strong>
+                    </a>
+                    <a href="#" class="action-btn" onclick="showSection('cameras')">
+                        <i class="fas fa-video text-primary"></i>
+                        <strong>Ver Cámaras</strong>
+                    </a>
+                    <a href="#" class="action-btn" onclick="call911()">
+                        <i class="fas fa-phone text-success"></i>
+                        <strong>Llamar 911</strong>
+                    </a>
+                    <a href="#" class="action-btn" onclick="showSection('reports')">
+                        <i class="fas fa-file-alt text-warning"></i>
+                        <strong>Nuevo Reporte</strong>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Emergency Section -->
+        <div id="emergency" class="section">
+            <div class="header">
+                <h1 class="header-title">Centro de Emergencias</h1>
+                <button class="emergency-btn" onclick="call911()">
+                    <i class="fas fa-phone"></i>
+                    Llamar 911
+                </button>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <h3 class="card-title text-danger">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Emergencia Inmediata
+                        </h3>
+                        <p class="card-description">Para situaciones que requieren atención inmediata de policía, bomberos o ambulancia.</p>
+                        <button class="btn btn-danger btn-lg w-100" onclick="call911()">
+                            <i class="fas fa-phone"></i>
+                            LLAMAR 911 AHORA
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <h3 class="card-title text-primary">
+                            <i class="fas fa-file-medical"></i>
+                            Reporte de Emergencia
+                        </h3>
+                        <p class="card-description">Envía un reporte detallado sobre una situación de emergencia.</p>
+                        <button class="btn btn-primary btn-lg w-100" data-bs-toggle="modal" data-bs-target="#emergencyModal">
+                            <i class="fas fa-edit"></i>
+                            CREAR REPORTE
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cameras Section -->
+        <div id="cameras" class="section">
+            <div class="header">
+                <h1 class="header-title">Sistema de Videovigilancia</h1>
+                <button class="btn btn-primary" onclick="refreshCameras()">
+                    <i class="fas fa-sync-alt"></i>
+                    Actualizar
+                </button>
+            </div>
+
+            <div class="camera-grid">
+                <div class="camera-feed">
+                    <div class="camera-placeholder">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div class="camera-info">
+                        <strong>Cámara Principal</strong><br>
+                        <span class="status-indicator status-online"></span>En línea
+                    </div>
+                </div>
+                <div class="camera-feed">
+                    <div class="camera-placeholder">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div class="camera-info">
+                        <strong>Entrada Principal</strong><br>
+                        <span class="status-indicator status-online"></span>En línea
+                    </div>
+                </div>
+                <div class="camera-feed">
+                    <div class="camera-placeholder">
+                        <i class="fas fa-video-slash"></i>
+                    </div>
+                    <div class="camera-info">
+                        <strong>Patio Trasero</strong><br>
+                        <span class="status-indicator status-offline"></span>Desconectada
+                    </div>
+                </div>
+                <div class="camera-feed">
+                    <div class="camera-placeholder">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div class="camera-info">
+                        <strong>Calle Principal</strong><br>
+                        <span class="status-indicator status-online"></span>En línea
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reports Section -->
+        <div id="reports" class="section">
+            <div class="header">
+                <h1 class="header-title">Reportar Incidente</h1>
+            </div>
+
+            <div class="card">
+                <form onsubmit="submitReport(event)">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Tipo de Incidente</label>
+                                <select class="form-select" required>
+                                    <option value="">Seleccionar...</option>
+                                    <option value="robo">Robo/Atraco</option>
+                                    <option value="violencia">Violencia Doméstica</option>
+                                    <option value="accidente">Accidente de Tránsito</option>
+                                    <option value="sospechoso">Actividad Sospechosa</option>
+                                    <option value="vandalismo">Vandalismo</option>
+                                    <option value="otros">Otros</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Prioridad</label>
+                                <select class="form-select" required>
+                                    <option value="">Seleccionar...</option>
+                                    <option value="alta">Alta - Emergencia</option>
+                                    <option value="media">Media - Urgente</option>
+                                    <option value="baja">Baja - Información</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Ubicación</label>
+                        <input type="text" class="form-control" placeholder="Dirección exacta del incidente" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Descripción del Incidente</label>
+                        <textarea class="form-control" rows="4" placeholder="Describe detalladamente lo sucedido..." required></textarea>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Fecha</label>
+                                <input type="date" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Hora</label>
+                                <input type="time" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Evidencias (Fotos/Videos)</label>
+                        <input type="file" class="form-control" multiple accept="image/*,video/*">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-paper-plane"></i>
+                        Enviar Reporte
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Map Section -->
+        <div id="map" class="section">
+            <div class="header">
+                <h1 class="header-title">Mapa de Incidentes</h1>
+            </div>
+
+            <div class="card">
+                <div style="height: 500px; background: #e5e7eb; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                    <div class="text-center">
+                        <i class="fas fa-map-marked-alt" style="font-size: 64px; color: var(--dark-gray); margin-bottom: 20px;"></i>
+                        <h4>Mapa Interactivo</h4>
+                        <p class="text-muted">Aquí se mostraría el mapa con los incidentes reportados</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contacts Section -->
+        <div id="contacts" class="section">
+            <div class="header">
+                <h1 class="header-title">Contactos de Emergencia</h1>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-icon red mx-auto">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h4>Policía Nacional</h4>
+                        <h2 class="text-danger">911</h2>
+                        <button class="btn btn-danger" onclick="call('911')">Llamar Ahora</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-icon red mx-auto">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <h4>Bomberos</h4>
+                        <h2 class="text-danger">911</h2>
+                        <button class="btn btn-danger" onclick="call('911')">Llamar Ahora</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-icon green mx-auto">
+                            <i class="fas fa-ambulance"></i>
+                        </div>
+                        <h4>Ambulancia</h4>
+                        <h2 class="text-success">911</h2>
+                        <button class="btn btn-success" onclick="call('911')">Llamar Ahora</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Section -->
+        <div id="profile" class="section">
+            <div class="header">
+                <h1 class="header-title">Mi Perfil</h1>
+            </div>
+
+            <div class="card">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Nombre Completo</label>
+                                <input type="text" class="form-control" value="Juan Pérez">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Cédula</label>
+                                <input type="text" class="form-control" value="001-1234567-8">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Teléfono</label>
+                                <input type="tel" class="form-control" value="(809) 123-4567">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" value="juan.perez@email.com">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Dirección</label>
+                        <input type="text" class="form-control" value="Calle Principal #123, Santo Domingo">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i>
+                        Guardar Cambios
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Settings Section -->
+        <div id="settings"

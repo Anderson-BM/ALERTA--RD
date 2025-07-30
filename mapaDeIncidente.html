@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALERTA RD - Sistema de Seguridad Ciudadana</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="Style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    </head>
+<body>
+ <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-siren"></i>
+            </div>
+            <h2 class="sidebar-title">ALERTA RD</h2>
+            <p class="sidebar-subtitle">Seguridad Ciudadana</p>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <div class="nav-item">
+                <a href="Index.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="emergencia.html" class="nav-link active">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Emergencias</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="camara.html" class="nav-link">
+                    <i class="fas fa-video"></i>
+                    <span>Cámaras</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="reportarIncidente.html" class="nav-link">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Reportar Incidente</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="mapaDeIncidente.html" class="nav-link">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>Mapa de Incidentes</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="contacts.html" class="nav-link">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>Contactos</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="profile.html" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    <span>Mi Perfil</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="settings.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Configuración</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1 class="header-title">Mapa de Incidentes</h1>
+            <button class="btn btn-primary" onclick="refreshMap()">
+                <i class="fas fa-sync-alt"></i>
+                Actualizar Mapa
+            </button>
+        </div>
+
+        <!-- Map Filters -->
+        <div class="map-filters">
+            <h5 class="mb-3">
+                <i class="fas fa-filter"></i>
+                Filtros de Búsqueda
+            </h5>
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label class="form-label">Tipo de Incidente</label>
+                    <select class="form-select" id="incidentType">
+                        <option value="">Todos los tipos</option>
+                        <option value="robbery">Robo/Atraco</option>
+                        <option value="accident">Accidente</option>
+                        <option value="violence">Violencia</option>
+                        <option value="suspicious">Actividad Sospechosa</option>
+                        <option value="vandalism">Vandalismo</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="form-label">Fecha Desde</label>
+                    <input type="date" class="form-control" id="dateFrom">
+                </div>
+                <div class="filter-group">
+                    <label class="form-label">Fecha Hasta</label>
+                    <input type="date" class="form-control" id="dateTo">
+                </div>
+                <div class="filter-group">
+                    <label class="form-label">&nbsp;</label>
+                    <button class="btn btn-primary w-100" onclick="applyFilters()">
+                        <i class="fas fa-search"></i>
+                        Aplicar Filtros
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Container -->
+        <div class="map-container">
+            <div class="map-placeholder">
+                <div class="map-content">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h4>Mapa Interactivo de Incidentes</h4>
+                    <p>Visualiza los incidentes reportados en tu área en tiempo real</p>
+                </div>
+                
+                <!-- Incident Markers -->
+                <div class="incident-markers">
+                    <div class="marker marker-robbery" 
+                         data-incident="Robo reportado en Calle Principal" 
+                         data-time="Hace 2 horas"
+                         onmouseover="showTooltip(event, this)" 
+                         onmouseout="hideTooltip()">
+                        <i class="fas fa-exclamation"></i>
+                    </div>
+                    <div class="marker marker-accident" 
+                         data-incident="Accidente de tránsito" 
+                         data-time="Hace 4 horas"
+                         onmouseover="showTooltip(event, this)" 
+                         onmouseout="hideTooltip()">
+                        <i class="fas fa-car-crash"></i>
+                    </div>
+                    <div class="marker marker-violence" 
+                         data-incident="Altercado doméstico" 
+                         data-time="Hace 6 horas"
+                         onmouseover="showTooltip(event, this)" 
+                         onmouseout="hideTooltip()">
+                        <i class="fas fa-fist-raised"></i>
+                    </div>
+                    <div class="marker marker-suspicious" 
+                         data-incident="Actividad sospechosa reportada" 
+                         data-time="Hace 1 hora"
+                         onmouseover="showTooltip(event, this)" 
+                         onmouseout="hideTooltip()">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="marker marker-vandalism" 
+                         data-incident="Vandalismo en propiedad pública" 
+                         data-time="Hace 8 horas"
+                         onmouseover="showTooltip(event, this)" 
+                         onmouseout="hideTooltip()">
+                        <i class="fas fa-spray-can"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="incident-legend">
+                <h6 class="mb-3">Leyenda</h6>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #dc2626;"></div>
+                    <span>Robo/Atraco</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f59e0b;"></div>
+                    <span>Accidente</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #7c3aed;"></div>
+                    <span>Violencia</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #0ea5e9;"></div>
+                    <span>Sospechoso</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #059669;"></div>
+                    <span>Vandalismo</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Incident Statistics -->
+        <div class="incident-stats">
+            <h5 class="mb-4">
+                <i class="fas fa-chart-pie"></i>
+                Estadísticas de Incidentes (Últimos 30 días)
+            </h5>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number stat-robbery">15</div>
+                    <div class="stat-label">Robos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number stat-accident">8</div>
+                    <div class="stat-label">Accidentes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number stat-violence">12</div>
+                    <div class="stat-label">Violencia</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number stat-suspicious">23</div>
+                    <div class="stat-label">Sospechosos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number stat-vandalism">6</div>
+                    <div class="stat-label">Vandalismo</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number text-primary">64</div>
+                    <div class="stat-label">Total</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tooltip -->
+    <div class="incident-tooltip" id="tooltip"></div>
+
+    <!-- Emergency Call Button -->
+    <div class="emergency-call" onclick="call911()">
+        <i class="fas fa-phone"></i>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function call911() {
+            if (confirm('¿Deseas llamar al 911 para emergencia?')) {
+                window.location.href = 'tel:911';
+            }
+        }
+
+        function refreshMap() {
+            const btn = event.target;
+            const icon = btn.querySelector('i');
+            
+            icon.classList.add('fa-spin');
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                icon.classList.remove('fa-spin');
+                btn.disabled = false;
+                alert('Mapa actualizado correctamente');
+            }, 2000);
+        }
+
+        function applyFilters() {
+            const incidentType = document.getElementById('incidentType').value;
+            const dateFrom = document.getElementById('dateFrom').value;
+            const dateTo = document.getElementById('dateTo').value;
+            
+            // Simulate filter application
+            alert('Filtros aplicados:\n' + 
+                  'Tipo: ' + (incidentType || 'Todos') + '\n' +
+                  'Desde: ' + (dateFrom || 'Sin límite') + '\n' +
+                  'Hasta: ' + (dateTo || 'Sin límite'));
+        }
+
+        function showTooltip(event, marker) {
+            const tooltip = document.getElementById('tooltip');
+            const incident = marker.getAttribute('data-incident');
+            const time = marker.getAttribute('data-time');
+            
+            tooltip.innerHTML = `<strong>${incident}</strong><br>${time}`;
+            tooltip.style.left = event.pageX + 10 + 'px';
+            tooltip.style.top = event.pageY - 50 + 'px';
+            tooltip.classList.add('show');
+        }
+
+        function hideTooltip() {
+            const tooltip = document.getElementById('tooltip');
+            tooltip.classList.remove('show');
+        }
+
+        // Set default dates
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+            
+            document.getElementById('dateTo').value = today.toISOString().split('T')[0];
+            document.getElementById('dateFrom').value = lastWeek.toISOString().split('T')[0];
+        });
+    </script>
+</body>
+</html>

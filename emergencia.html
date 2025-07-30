@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergencias - ALERTA RD</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="Style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    </head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-siren"></i>
+            </div>
+            <h2 class="sidebar-title">ALERTA RD</h2>
+            <p class="sidebar-subtitle">Seguridad Ciudadana</p>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <div class="nav-item">
+                <a href="Index.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="emergencia.html" class="nav-link active">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Emergencias</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="camara.html" class="nav-link">
+                    <i class="fas fa-video"></i>
+                    <span>Cámaras</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="reportarIncidente.html" class="nav-link">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Reportar Incidente</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="mapaDeIncidente.html" class="nav-link">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>Mapa de Incidentes</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="contacts.html" class="nav-link">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>Contactos</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="profile.html" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    <span>Mi Perfil</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="settings.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Configuración</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1 class="header-title">Centro de Emergencias</h1>
+            <button class="emergency-btn" onclick="call911()">
+                <i class="fas fa-phone"></i>
+                Llamar 911
+            </button>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <h3 class="card-title text-danger">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Emergencia Inmediata
+                    </h3>
+                    <p class="card-description">Para situaciones que requieren atención inmediata de policía, bomberos o ambulancia.</p>
+                    <button class="btn btn-danger btn-lg w-100" onclick="call911()">
+                        <i class="fas fa-phone"></i>
+                        LLAMAR 911 AHORA
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <h3 class="card-title text-primary">
+                        <i class="fas fa-file-medical"></i>
+                        Reporte de Emergencia
+                    </h3>
+                    <p class="card-description">Envía un reporte detallado sobre una situación de emergencia.</p>
+                    <button class="btn btn-primary btn-lg w-100" data-bs-toggle="modal" data-bs-target="#emergencyModal">
+                        <i class="fas fa-edit"></i>
+                        CREAR REPORTE
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <h3 class="card-title">
+                        <i class="fas fa-history"></i>
+                        Historial de Emergencias
+                    </h3>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Tipo</th>
+                                    <th>Estado</th>
+                                    <th>Ubicación</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>28/07/2025 14:30</td>
+                                    <td><span class="badge bg-danger">Emergencia Médica</span></td>
+                                    <td><span class="badge bg-success">Atendida</span></td>
+                                    <td>Calle Principal #123</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary">Ver Detalles</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>27/07/2025 22:15</td>
+                                    <td><span class="badge bg-warning">Robo</span></td>
+                                    <td><span class="badge bg-info">En Proceso</span></td>
+                                    <td>Av. Independencia</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary">Ver Detalles</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Call Button -->
+    <div class="emergency-call" onclick="call911()">
+        <i class="fas fa-phone"></i>
+    </div>
+
+    <!-- Emergency Modal -->
+    <div class="modal fade" id="emergencyModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Reporte de Emergencia
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form onsubmit="submitEmergencyReport(event)">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Tipo de Emergencia</label
